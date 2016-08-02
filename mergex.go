@@ -5,6 +5,15 @@ import (
 	"reflect"
 )
 
+// Merger
+type Merger interface {
+	Merge(Merger) error
+}
+
+func Merge(dst, src interface{}) error {
+	return mergex(reflect.ValueOf(dst), reflect.ValueOf(src))
+}
+
 func Mergex(dst, src interface{}) error {
 	return mergex(reflect.ValueOf(dst), reflect.ValueOf(src))
 }
