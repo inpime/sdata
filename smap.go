@@ -34,6 +34,14 @@ type StringMap struct {
 	data map[string]interface{}
 }
 
+func (m *StringMap) GobDecode(b []byte) error {
+	return msgpack.Unmarshal(b, &m.data)
+}
+
+func (m *StringMap) GobEncode() ([]byte, error) {
+	return msgpack.Marshal(m.data)
+}
+
 func (m *StringMap) UnmarshalTOML(b []byte) error {
 	return toml.Unmarshal(b, m)
 }
