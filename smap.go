@@ -120,6 +120,17 @@ func (m *StringMap) GetIf(key string) (value interface{}, exists bool) {
 	return
 }
 
+func (m *StringMap) ToMap() map[string]interface{} {
+	out := make(map[string]interface{})
+
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
+
+	Mergex(out, m.data)
+
+	return out
+}
+
 // private
 
 func (m *StringMap) set(key string, value interface{}) {
