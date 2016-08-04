@@ -80,6 +80,17 @@ func (m *Map) Remove(key interface{}) *Map {
 	return m
 }
 
+// Extend functions
+
+func (m *Map) GetIf(key interface{}) (value interface{}, exists bool) {
+	m.mutex.RLock()
+	defer m.mutex.RUnlock()
+
+	value, exists = m.data[key]
+
+	return
+}
+
 // private
 
 func (m *Map) set(key, value interface{}) {

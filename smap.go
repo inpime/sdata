@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"sync"
 
-	"gopkg.in/vmihailenco/msgpack.v2"
 	"github.com/BurntSushi/toml"
+	"gopkg.in/vmihailenco/msgpack.v2"
 )
 
 func NewStringMap() *StringMap {
@@ -107,6 +107,17 @@ func (m *StringMap) Remove(key string) *StringMap {
 	m.remove(key)
 
 	return m
+}
+
+// Extend functions
+
+func (m *StringMap) GetIf(key string) (value interface{}, exists bool) {
+	m.mutex.RLock()
+	defer m.mutex.RUnlock()
+
+	value, exists = m.data[key]
+
+	return
 }
 
 // private
