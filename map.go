@@ -91,6 +91,13 @@ func (m *Map) GetIf(key interface{}) (value interface{}, exists bool) {
 	return
 }
 
+func (m *Map) Size() int {
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
+
+	return m.size()
+}
+
 // private
 
 func (m *Map) set(key, value interface{}) {

@@ -131,6 +131,13 @@ func (m *StringMap) ToMap() map[string]interface{} {
 	return out
 }
 
+func (m *StringMap) Size() int {
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
+
+	return m.size()
+}
+
 // private
 
 func (m *StringMap) set(key string, value interface{}) {
