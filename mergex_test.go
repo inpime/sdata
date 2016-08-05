@@ -9,6 +9,53 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestMergex_structwithstringmap(t *testing.T) {
+	type s struct {
+		S string
+		A *Array
+		M *StringMap
+	}
+
+	src := &s{
+		"a",
+		NewArray().Add("a").Add("b"),
+		NewStringMap().Set("a", "b").Set("c", "d"),
+	}
+
+	dst := &s{
+		"b",
+		NewArray().Add("c").Add("d"),
+		NewStringMap().Set("a", "c").Set("e", "f"),
+	}
+
+	exp := &s{
+		"a",
+		NewArray().Add("a").Add("b").Add("c").Add("d"),
+		NewStringMap().Set("a", "b").
+			Set("c", "d").
+			Set("e", "f"),
+	}
+
+	err := Mergex(dst, src)
+	assert.NoError(t, err)
+
+	if dst.S != exp.S {
+		t.FailNow()
+	}
+
+	if !dst.A.Includes(exp.A.Values()...) {
+		t.FailNow()
+	}
+
+	if !exp.A.Includes(dst.A.Values()...) {
+		t.FailNow()
+	}
+
+	if !reflect.DeepEqual(exp.M.Data(), dst.M.Data()) {
+		t.FailNow()
+	}
+}
+
 func TestMergex_specialtypes_async(t *testing.T) {
 	type s struct {
 		S string
