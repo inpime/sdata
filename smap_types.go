@@ -41,6 +41,16 @@ func (m *StringMap) A(key string) *Array {
 		return m.A(key)
 	case *Array:
 		return _map
+	case []map[string]interface{}:
+		_arr := NewArray()
+
+		for _, value := range _map {
+			_arr.Add(value)
+		}
+
+		m.set(key, _arr)
+
+		return m.A(key)
 	}
 
 	return nil
