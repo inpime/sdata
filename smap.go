@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"sync"
 
-	"github.com/BurntSushi/toml"
 	"gopkg.in/vmihailenco/msgpack.v2"
 )
 
@@ -46,8 +45,10 @@ func (m *StringMap) GobEncode() ([]byte, error) {
 	return msgpack.Marshal(m.data)
 }
 
-func (m *StringMap) UnmarshalTOML(b []byte) error {
-	return toml.Unmarshal(b, m)
+func (m *StringMap) UnmarshalTOML(b interface{}) error {
+	m.LoadFrom(b)
+	return nil
+	// return toml.Unmarshal(b, &m.data)
 }
 
 func (m *StringMap) MarshalJSON() ([]byte, error) {
