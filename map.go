@@ -98,6 +98,10 @@ func (m *Map) Size() int {
 	return m.size()
 }
 
+func (m *Map) Data() map[interface{}]interface{} {
+	return m.data
+}
+
 // private
 
 func (m *Map) set(key, value interface{}) {

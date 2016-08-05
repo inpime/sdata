@@ -89,6 +89,11 @@ func (a *Array) Values() []interface{} {
 	return newArr
 }
 
+// Data unsafe function, return data
+func (m *Array) Data() []interface{} {
+	return m.data
+}
+
 func (a *Array) Size() int {
 	a.mutex.RLock()
 	defer a.mutex.RUnlock()

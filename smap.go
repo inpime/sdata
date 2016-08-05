@@ -143,6 +143,10 @@ func (m *StringMap) ToMap() map[string]interface{} {
 	return out
 }
 
+func (m *StringMap) Data() map[string]interface{} {
+	return m.data
+}
+
 func (m *StringMap) Size() int {
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
