@@ -16,6 +16,8 @@ func NewStringMap() *StringMap {
 }
 
 func NewStringMapFrom(v interface{}) (m *StringMap) {
+	m = NewStringMap()
+
 	switch v := v.(type) {
 	case map[string]interface{}:
 		return &StringMap{
@@ -23,6 +25,8 @@ func NewStringMapFrom(v interface{}) (m *StringMap) {
 		}
 	case *StringMap:
 		m = v
+	default:
+		m = NewStringMap()
 	}
 
 	return
