@@ -26,6 +26,8 @@ func (m *StringMap) LoadFrom(v interface{}) *StringMap {
 		m.LoadFromStringMap(v)
 	}
 
+	m.Clear()
+
 	return m
 }
 
@@ -63,8 +65,9 @@ func (m *StringMap) Clear() *StringMap {
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
 
-	for _, key := range m.Keys() {
+	for _, key := range m.keys() {
 		m.remove(key)
 	}
+
 	return m
 }
