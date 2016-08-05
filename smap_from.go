@@ -26,8 +26,6 @@ func (m *StringMap) LoadFrom(v interface{}) *StringMap {
 		m.LoadFromStringMap(v)
 	}
 
-	m.Clear()
-
 	return m
 }
 
