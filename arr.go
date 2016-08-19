@@ -1,7 +1,9 @@
 package sdata
 
 import (
+	"database/sql/driver"
 	"encoding/json"
+	"fmt"
 	"sync"
 
 	"gopkg.in/vmihailenco/msgpack.v2"
@@ -99,6 +101,21 @@ func (a *Array) Size() int {
 	defer a.mutex.RUnlock()
 
 	return a.size()
+}
+
+func (m *Array) Value() (driver.Value, error) {
+	return m.MarshalJSON()
+}
+
+func (m *Array) Scan(val interface{}) error {
+	if val == nil {
+		return nil
+	}
+	if b, ok := val.([]byte); ok {
+		return m.UnmarshalJSON(b)
+	}
+
+	return fmt.Errorf("Array#Scan(): invalid data")
 }
 
 func (m *Array) MarshalJSON() ([]byte, error) {

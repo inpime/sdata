@@ -1,5 +1,25 @@
 package sdata
 
+import (
+	"database/sql/driver"
+	"fmt"
+)
+
+func (m *StringMap) Value() (driver.Value, error) {
+	return m.MarshalJSON()
+}
+
+func (m *StringMap) Scan(val interface{}) error {
+	if val == nil {
+		return nil
+	}
+	if b, ok := val.([]byte); ok {
+		return m.UnmarshalJSON(b)
+	}
+
+	return fmt.Errorf("StringMap#Scan(): invalid data")
+}
+
 func (m *StringMap) M(key string) *StringMap {
 	m.mutex.RLock()
 	defer m.mutex.RUnlock()
