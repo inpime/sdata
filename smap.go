@@ -41,7 +41,7 @@ func (m *StringMap) GobDecode(b []byte) error {
 	return msgpack.Unmarshal(b, &m.data)
 }
 
-func (m *StringMap) GobEncode() ([]byte, error) {
+func (m StringMap) GobEncode() ([]byte, error) {
 	return msgpack.Marshal(m.data)
 }
 
@@ -51,7 +51,7 @@ func (m *StringMap) UnmarshalTOML(b interface{}) error {
 	// return toml.Unmarshal(b, &m.data)
 }
 
-func (m *StringMap) MarshalJSON() ([]byte, error) {
+func (m StringMap) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m.data)
 }
 
@@ -59,7 +59,7 @@ func (m *StringMap) UnmarshalJSON(b []byte) error {
 	return json.Unmarshal(b, &m.data)
 }
 
-func (m *StringMap) MarshalMsgpack() ([]byte, error) {
+func (m StringMap) MarshalMsgpack() ([]byte, error) {
 	return msgpack.Marshal(m.data)
 }
 

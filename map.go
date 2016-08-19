@@ -32,7 +32,7 @@ type Map struct {
 	data map[interface{}]interface{}
 }
 
-func (m *Map) MarshalJSON() ([]byte, error) {
+func (m Map) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m.data)
 }
 
@@ -40,7 +40,7 @@ func (m *Map) UnmarshalJSON(b []byte) error {
 	return json.Unmarshal(b, &m.data)
 }
 
-func (m *Map) MarshalMsgpack() ([]byte, error) {
+func (m Map) MarshalMsgpack() ([]byte, error) {
 	return msgpack.Marshal(m.data)
 }
 
