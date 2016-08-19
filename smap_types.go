@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func (m *StringMap) Value() (driver.Value, error) {
+func (m StringMap) Value() (driver.Value, error) {
 	return m.MarshalJSON()
 }
 
